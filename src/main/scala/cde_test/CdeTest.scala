@@ -11,6 +11,9 @@ trait HasAXIStreamParameters {
   val p: Parameters
   val numBeats = p(AXISNumBeats)
   val beatWidth = p(AXISBeatWidth)
+  val totalWidth = numBeats * beatWidth
+  require(numBeats > 0)
+  require(beatWidth > 0)
 }
 
 class AXIStream(implicit val p: Parameters) extends Bundle 
@@ -29,6 +32,8 @@ class Passthrough(implicit p: Parameters) extends Module {
 
   io.out <> io.in
 }
+
+
 
 object Main extends App {
   val cfg = new Config((site, here, up) => {
